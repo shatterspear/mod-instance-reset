@@ -1,1 +1,0 @@
-install(FILES "${CMAKE_SOURCE_DIR}/modules/mod-instance-reset/conf/instance-reset.conf.dist" DESTINATION ${CONF_DIR})
