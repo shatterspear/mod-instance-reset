@@ -27,7 +27,7 @@ public:
         uint32 diff = 2;
         if (action == GOSSIP_ACTION_INFO_DEF + 1)
         {
-            if (!sConfigMgr->GetBoolDefault("instanceReset.NormalModeOnly", true))
+            if (!sConfigMgr->GetBoolDefault("instanceReset.NormalModeOnly", false))
                 diff = MAX_DIFFICULTY;
             for (uint8 i = 0; i < diff; ++i)
             {
