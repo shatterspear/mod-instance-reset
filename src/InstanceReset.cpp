@@ -34,11 +34,8 @@ public:
                 BoundInstancesMap const& m_boundInstances = sInstanceSaveMgr->PlayerGetBoundInstances(player->GetGUIDLow(), Difficulty(i));
                 for (BoundInstancesMap::const_iterator itr = m_boundInstances.begin(); itr != m_boundInstances.end();)
                 {
-                    InstanceSave* save = itr->second.save;
                     if (itr->first != player->GetMapId())
                     {
-                        uint32 resetTime = itr->second.extended ? save->GetExtendedResetTime() : save->GetResetTime();
-                        uint32 ttr = (resetTime >= time(nullptr) ? resetTime - time(nullptr) : 0);
                         sInstanceSaveMgr->PlayerUnbindInstance(player->GetGUIDLow(), itr->first, Difficulty(i), true, player);
                         itr = m_boundInstances.begin();
                     }
@@ -77,6 +74,6 @@ public:
 
 void AddInstanceResetScripts() {
     new instanceReset();
-    new instanceResetWorld(); 
+    new instanceResetWorld();
 }
 
