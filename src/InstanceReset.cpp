@@ -6,6 +6,20 @@
 #include "ScriptedGossip.h"
 #include "Language.h"
 
+static bool instancereset_enable;
+static bool instancereset_normalmodeonly;
+
+class instanceResetConfigLoad : public WorldScript {
+public:
+
+    instanceResetConfigLoad() : WorldScript("instanceResetConfigLoad") { }
+
+    void OnBeforeConfigLoad(bool /*reload*/) override {
+        instancereset_enable = sConfigMgr->GetBoolDefault("instanceReset.Enable", 1);
+        instancereset_normalmodeonly = sConfigMgr->GetBoolDefault("instanceReset.NormalModeOnly", 0);
+    }
+};
+
 class instanceReset : public CreatureScript
 {
 public:
@@ -13,11 +27,11 @@ public:
 
     bool OnGossipHello(Player* player, Creature* creature) override
     {
-        if (!sConfigMgr->GetBoolDefault("instanceReset.Enable", true))
-            return true;
-        ClearGossipMenuFor(player);
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to remove my instance saves.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
-        SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+        if (instancereset_enable) {
+            ClearGossipMenuFor(player);
+            AddGossipItemFor(player, GOSSIP_ICON_CHAT, "I would like to remove my instance saves.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF + 1);
+            SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
+        }
         return true;
     }
 
@@ -27,7 +41,7 @@ public:
         uint32 diff = 2;
         if (action == GOSSIP_ACTION_INFO_DEF + 1)
         {
-            if (!sConfigMgr->GetBoolDefault("instanceReset.NormalModeOnly", false))
+            if (!instancereset_normalmodeonly)
                 diff = MAX_DIFFICULTY;
             for (uint8 i = 0; i < diff; ++i)
             {
@@ -50,30 +64,8 @@ public:
     }
 };
 
-class instanceResetWorld : public WorldScript
-{
-public:
-    instanceResetWorld() : WorldScript("instanceResetWorld") { }
-
-    void OnBeforeConfigLoad(bool reload) override
-    {
-        if (!reload)
-        {
-            std::string conf_path = _CONF_DIR;
-            std::string cfg_file = conf_path + "/instance-reset.conf";
-			#ifdef WIN32
-            cfg_file = "instance-reset.conf";
-			#endif
-            std::string cfg_def_file = cfg_file + ".dist";
-
-            sConfigMgr->LoadMore(cfg_def_file.c_str());
-            sConfigMgr->LoadMore(cfg_file.c_str());
-        }
-    }
-};
-
 void AddInstanceResetScripts() {
+    new instanceResetConfigLoad();
     new instanceReset();
-    new instanceResetWorld();
 }
 
