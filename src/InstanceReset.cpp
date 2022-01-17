@@ -15,8 +15,8 @@ public:
     instanceResetConfigLoad() : WorldScript("instanceResetConfigLoad") { }
 
     void OnBeforeConfigLoad(bool /*reload*/) override {
-        instancereset_enable = sConfigMgr->GetBoolDefault("instanceReset.Enable", 1);
-        instancereset_normalmodeonly = sConfigMgr->GetBoolDefault("instanceReset.NormalModeOnly", 0);
+        instancereset_enable = sConfigMgr->GetOption<bool>("instanceReset.Enable", 1);
+        instancereset_normalmodeonly = sConfigMgr->GetOption<bool>("instanceReset.NormalModeOnly", 0);
     }
 };
 

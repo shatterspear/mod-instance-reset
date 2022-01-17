@@ -26,6 +26,7 @@ This module requires:
 1) Simply place the module under the `modules` directory of your AzerothCore source. 
 2) Import the SQL manually to the world Database.
 3) Re-run cmake and launch a clean build of AzerothCore.
+4) Add the npc via script or command wherever you like.
 ```
 
 ## Edit module configuration (optional)
@@ -35,10 +36,6 @@ If you need to change the module configuration, go to your server configuration 
 
 ## Credits
 
-Nefertumm (author):
-
-Barbz: best guy
-
-Talamortis: almost best guy
+Nefertumm (author): [GitHub](https://github.com/Nefertumm)
 
 AzerothCore: [repository](https://github.com/azerothcore) - [website](http://azerothcore.org/) - [discord chat community](https://discord.gg/PaqQRkd)
