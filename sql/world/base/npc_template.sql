@@ -21,5 +21,5 @@ INSERT INTO `creature_template_locale` (`entry`, `locale`, `Name`, `Title`, `Ver
 (@Entry, 'koKR', @Name, '인스턴스 재시작', 0),
 (@Entry, 'deDE', @Name, 'Neustart der Instanz', 0),
 (@Entry, 'zhCN', @Name, '重新启动实例', 0),
-(@Entry, 'zhTW', @Name, '實例重啟', 0),
+(@Entry, 'zhTW', @Name, '重置副本', 0),
 (@entry, 'ruRU', @name, 'Перезапуск подземелий', 0);
