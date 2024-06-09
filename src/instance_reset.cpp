@@ -1,4 +1,5 @@
 #include "instance_reset.h"
+#include <string>
 
 /*
 * This method is used to override the npc_text
@@ -76,24 +77,15 @@ bool InstanceReset::OnGossipHello(Player* player, Creature* creature)
         case LOCALE_deDE:
         case LOCALE_zhCN:
         case LOCALE_zhTW:
-        {
-            gossipText = "I would like to remove my instance saves.";
-            message = "Greetings $n. This is an npc that allows you to reset instance ids, allowing you to re-enter, without the need to wait for the reset time to expire. It was developed by the AzerothCore community.";
-            break;
-        }
         case LOCALE_esES:
         case LOCALE_esMX:
-        {
-            gossipText = "Me gustaría reiniciar mis ids de instancias.";
-            message = "Saludos $n. Este es un npc que te permite reiniciar los ids de las instancias, permitiéndote volver a entrar, sin la necesidad de esperar a que se cumpla el tiempo para el reinicio. Fue desarrollado por la comunidad de AzerothCore.";
-            break;
-        }
         case LOCALE_ruRU:
         {
-            gossipText = "Я бы хотел удалить мои сохраненные подземелья.";
-            message = "Приветствую, $n. Этот персонаж может удалить список посещенных подземелий, позволив Вам повторно их посетить не дожидаясь времени планового перезапуска. Разработан в AzerothCore community.";
+            gossipText = "I would like to remove my instance saves.";
+            message = "Greetings $n. Do you need to reset your instances and raids? The price is " + std::to_string(money / 10000) + " gold.";
             break;
         }
+
         default:
             break;
     }
@@ -192,21 +184,15 @@ bool InstanceReset::OnGossipSelect(Player* player, Creature* creature, uint32 /*
             case LOCALE_deDE:
             case LOCALE_zhCN:
             case LOCALE_zhTW:
-            {
-                creatureWhisper = "Your instances have been reset.";
-                break;
-            }
             case LOCALE_esES:
             case LOCALE_esMX:
-            {
-                creatureWhisper = "Sus instancias han sido restablecidas.";
-                break;
-            }
             case LOCALE_ruRU:
+
             {
-                creatureWhisper = "Ваши подземелья перезагружены.";
+                creatureWhisper = "Your instances and raids have been reset.";
                 break;
             }
+           
             default:
                 break;
         }
